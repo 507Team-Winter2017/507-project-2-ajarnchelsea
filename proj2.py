@@ -65,16 +65,18 @@ print('\n*********** PROBLEM 4 ***********')
 print("UMSI faculty directory emails\n")
 
 ### Your Problem 4 solution goes here
+
 counter = 1
+
 for i in range(6):
 	if i == 0:
 		base_url4 = "https://www.si.umich.edu/directory?field_person_firstname_value=&field_person_lastname_value=&rid=4"
 		req = urllib.request.Request(base_url4, None, {'User-Agent': 'SI_CLASS'})
 		html4 = urllib.request.urlopen(req, context = ctx).read()
 		soup4 = BeautifulSoup(html4, 'html.parser')
+
 	else:
-		page_num = "&page=" + str(i)
-		base_url4 = "https://www.si.umich.edu/directory?field_person_firstname_value=&field_person_lastname_value=&rid=4" + page_num
+		base_url4 = "https://www.si.umich.edu" + str(h)
 		req = urllib.request.Request(base_url4, None, {'User-Agent': 'SI_CLASS'})
 		html4 = urllib.request.urlopen(req, context = ctx).read()
 		soup4 = BeautifulSoup(html4, 'html.parser')
@@ -94,5 +96,14 @@ for i in range(6):
 					z = email["href"]
 					print (str(counter) + " " + z[7:])
 					counter += 1
+
+	nxt = soup4.find_all("li", class_="pager-next last")
+	for item in nxt:
+		for thing in item.find_all("a"):
+			h = thing["href"]
+
+
+
+
 
 
